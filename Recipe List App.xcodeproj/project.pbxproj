@@ -17,6 +17,7 @@
 		A25A45142684E207008947B8 /* RecipeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25A45132684E207008947B8 /* RecipeModel.swift */; };
 		A25A45182684E2EB008947B8 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25A45172684E2EB008947B8 /* DataService.swift */; };
 		A2B6B48726862C62002CBD8D /* RecipeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B6B48626862C62002CBD8D /* RecipeDetailView.swift */; };
+		A2B80D16268A5688001A4671 /* Ingredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B80D15268A5688001A4671 /* Ingredient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		A25A45132684E207008947B8 /* RecipeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeModel.swift; sourceTree = "<group>"; };
 		A25A45172684E2EB008947B8 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		A2B6B48626862C62002CBD8D /* RecipeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailView.swift; sourceTree = "<group>"; };
+		A2B80D15268A5688001A4671 /* Ingredient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ingredient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				A25A45102684E0DD008947B8 /* Recipe.swift */,
+				A2B80D15268A5688001A4671 /* Ingredient.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -201,6 +204,7 @@
 				A2B6B48726862C62002CBD8D /* RecipeDetailView.swift in Sources */,
 				A25A45142684E207008947B8 /* RecipeModel.swift in Sources */,
 				A25A44F92684DFE1008947B8 /* RecipeListView.swift in Sources */,
+				A2B80D16268A5688001A4671 /* Ingredient.swift in Sources */,
 				A25A44F72684DFE1008947B8 /* Recipe_List_App.swift in Sources */,
 				A25A45182684E2EB008947B8 /* DataService.swift in Sources */,
 				A225F9A8268A378C008B9262 /* RecipeTabView.swift in Sources */,

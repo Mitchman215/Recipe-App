@@ -13,6 +13,7 @@ struct RecipeHighlights: View {
     
     var body: some View {
         Text(allHighlights)
+            .font(Font.custom("Avenir", size: 15))
     }
     
     init(highlights:[String]) {

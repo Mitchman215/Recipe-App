@@ -23,10 +23,27 @@ struct RecipeListView: View {
     var body: some View {
         NavigationView {
             VStack (alignment: .leading) {
-                Text(titleText)
-                    .bold()
-                    .padding(.top, 40)
-                    .font(Font.custom("Avenir Heavy", size: 24))
+                
+                HStack {
+                    // Title
+                    Text(titleText)
+                        .bold()
+                        .font(Font.custom("Avenir Heavy", size: 24))
+                    
+                    Spacer()
+                    
+                    // Button to clear categories
+                    if model.selectedCategory != nil && model.selectedCategory != Constants.defaultListFilter {
+                        Button(action: {
+                            model.selectedCategory = Constants.defaultListFilter
+                        }, label: {
+                            Text("Clear selected category")
+                                .font(Font.custom("Avenir Heavy", size: 16))
+                        })
+                    }
+                }
+                .padding(.top, 40)
+                .padding(.trailing)
                 
                 ScrollView {
                     LazyVStack (alignment: .leading) {

@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Ingredient: Identifiable, Decodable {
+class IngredientJSON: Identifiable, Decodable {
     
     var id:UUID?
     var name:String

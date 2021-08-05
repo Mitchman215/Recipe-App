@@ -22,6 +22,8 @@ struct AddRecipeView: View {
     @State private var highlights = [String]()
     @State private var directions = [String]()
     
+    // Ingredient data
+    @State private var ingredients = [IngredientJSON]()
     
     var body: some View {
         
@@ -30,14 +32,17 @@ struct AddRecipeView: View {
             HStack {
                 Button("Clear") {
                     // Clear the form
+                    clear()
                 }
                 
                 Spacer()
                 
                 Button("Add") {
                     // Add the recipe to core data
+                    addRecipe()
                     
                     // Clear the form
+                    clear()
                 }
             }
             
@@ -59,7 +64,8 @@ struct AddRecipeView: View {
                     AddListData(fieldName: "Highlights", example: "Savory", listBind: $highlights)
                     AddListData(fieldName: "Directions", example: "Preheat oven to 425°F.", listBind: $directions)
                     
-                    
+                    // Place to add ingredient data
+                    AddIngredientData(ingredients: $ingredients)
                 }
             }
         }
@@ -69,10 +75,31 @@ struct AddRecipeView: View {
     private func propertyField(fieldName: String, example: String, textBind: Binding<String>) -> some View {
         HStack {
             Text(fieldName + ": ")
+                .bold()
             TextField(example, text: textBind)
         }
     }
     
+    /// Clears all the form fields
+    private func clear() {
+        name = ""
+        category = ""
+        summary = ""
+        prepTime = ""
+        cookTime = ""
+        totalTime = ""
+        servings = ""
+    
+        highlights = [String]()
+        directions = [String]()
+        
+        ingredients = [IngredientJSON]()
+    }
+    
+    /// Add the recipe into core data
+    private func addRecipe() {
+        
+    }
 }
 
 struct AddRecipeView_Previews: PreviewProvider {

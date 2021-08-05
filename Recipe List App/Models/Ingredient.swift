@@ -10,7 +10,7 @@ import Foundation
 class IngredientJSON: Identifiable, Decodable {
     
     var id:UUID?
-    var name:String
+    var name:String = ""
     var num:Int?
     var denom:Int?
     var unit:String?

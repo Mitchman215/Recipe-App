@@ -42,12 +42,12 @@ struct RecipeTabView: View {
         .environmentObject(RecipeModel())
         
     }
-}
-
-private func tabItemDisplay(image: String, text: String) -> some View {
-    VStack {
-        Image(systemName: image)
-        Text(text)
+    
+    private func tabItemDisplay(image: String, text: String) -> some View {
+        VStack {
+            Image(systemName: image)
+            Text(text)
+        }
     }
 }
 

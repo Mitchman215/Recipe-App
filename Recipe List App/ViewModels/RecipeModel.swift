@@ -15,7 +15,7 @@ class RecipeModel: ObservableObject {
     private let managedObjectContext = PersistenceController.shared.container.viewContext
     
     @Published var categories = Set<String>()
-    @Published var selectedCategory: String?
+    @Published var selectedCategory = Constants.defaultListFilter
     
     init() {
         // Check if we have preloaded the data into core data

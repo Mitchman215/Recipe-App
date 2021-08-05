@@ -19,7 +19,8 @@ struct RecipeListView: View {
     
     /// The recipes filtered by a search term and/ or a selected category
     private var filteredRecipes: [Recipe] {
-        let filterByEmpty = (filterBy.trimmingCharacters(in: .whitespacesAndNewlines) == "")
+        let filterByWithoutSpaces = filterBy.trimmingCharacters(in: .whitespacesAndNewlines)
+        let filterByEmpty = (filterByWithoutSpaces == "")
         let noSelectedCategory = (model.selectedCategory == Constants.defaultListFilter)
         
         if filterByEmpty && noSelectedCategory {
@@ -29,7 +30,7 @@ struct RecipeListView: View {
         else {
             // Filter by the searched term and selected category
             return recipes.filter { (r) -> Bool in
-                return (filterByEmpty || r.name.localizedCaseInsensitiveContains(filterBy)) &&
+                return (filterByEmpty || r.name.localizedCaseInsensitiveContains(filterByWithoutSpaces)) &&
                     (noSelectedCategory || r.category == model.selectedCategory)
             }
         }

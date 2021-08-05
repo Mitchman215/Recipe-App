@@ -27,6 +27,7 @@ class RecipeModel: ObservableObject {
         }
     }
     
+    /// checks if the default recipes have been preloaded into core data. If not, call preloadData
     func checkLoadedData() {
         // Check local storage for the flag
         let status = UserDefaults.standard.bool(forKey: Constants.isDataPreloaded)
@@ -107,6 +108,7 @@ class RecipeModel: ObservableObject {
         
     }
     
+    /// Converts an ingredient, recipeServings, and targetServings into a displayable string that contains the ingredient quantity and unit
     static func getPortion(ingredient:Ingredient, recipeServings:Int, targetServings:Int) -> String {
         var portion = ""
         var numerator = ingredient.num

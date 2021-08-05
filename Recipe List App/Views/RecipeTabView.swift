@@ -17,33 +17,37 @@ struct RecipeTabView: View {
             
             RecipeFeaturedView()
                 .tabItem {
-                    VStack {
-                        Image(systemName: "star.fill")
-                        Text("Featured")
-                    }
+                    tabItemDisplay(image: "star.fill", text: "Featured")
                 }
                 .tag(Constants.featuredTab)
             
             RecipeCategoryView(selectedTab: $selectedTab)
                 .tabItem {
-                    VStack {
-                        Image(systemName: "square.grid.2x2")
-                        Text("Categories")
-                    }
+                    tabItemDisplay(image: "square.grid.2x2", text: "Categories")
                 }
                 .tag(Constants.categoriesTab)
             
             RecipeListView()
                 .tabItem {
-                    VStack {
-                        Image(systemName: "list.bullet")
-                        Text("List")
-                    }
+                    tabItemDisplay(image: "list.bullet", text: "List")
                 }
                 .tag(Constants.listTab)
+            
+            AddRecipeView()
+                .tabItem {
+                    tabItemDisplay(image: "plus.circle", text: "Add")
+                }
+                .tag(Constants.addTab)
         }
         .environmentObject(RecipeModel())
         
+    }
+}
+
+private func tabItemDisplay(image: String, text: String) -> some View {
+    VStack {
+        Image(systemName: image)
+        Text(text)
     }
 }
 

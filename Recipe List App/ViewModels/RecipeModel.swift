@@ -7,13 +7,13 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 class RecipeModel: ObservableObject {
     
     // Reference to the managed object context
     private let managedObjectContext = PersistenceController.shared.container.viewContext
     
-    @Published var recipes = [Recipe]()
     @Published var categories = Set<String>()
     @Published var selectedCategory: String?
     
@@ -21,11 +21,10 @@ class RecipeModel: ObservableObject {
         // Check if we have preloaded the data into core data
         checkLoadedData()
         
-        // Get all the different categories in the recipes
-        self.categories = Set(self.recipes.map { r in
-            return r.category
-        })
-        self.categories.update(with: Constants.defaultListFilter)
+        // If categories hasn't been filled, call fillCategories
+        if categories.count == 0 {
+            fillCategories()
+        }
     }
     
     func checkLoadedData() {
@@ -71,7 +70,13 @@ class RecipeModel: ObservableObject {
                 // Add ingredient to the recipe
                 recipe.addToIngredients(ingredient)
             }
+            
+            // Add the category to the categories set
+            self.categories.insert(r.category)
         }
+        
+        // Add "All Recipes" as a category
+        self.categories.update(with: Constants.defaultListFilter)
         
         do {
             // Save into Core Data
@@ -84,6 +89,22 @@ class RecipeModel: ObservableObject {
             // Couldn't save to core data
             print(error.localizedDescription)
         }
+    }
+    
+    /// Fetches the recipes and fills the categories set with all the categories present in the recipes
+    private func fillCategories() {
+        let recipesFetch = NSFetchRequest<Recipe>(entityName: "Recipe")
+        do {
+            let recipes = try managedObjectContext.fetch(recipesFetch)
+            self.categories = Set(recipes.map { r in
+                return r.category
+            })
+            self.categories.update(with: Constants.defaultListFilter)
+        }
+        catch {
+            print("Could not fetch the recipes to fill the categories set")
+        }
+        
     }
     
     static func getPortion(ingredient:Ingredient, recipeServings:Int, targetServings:Int) -> String {
@@ -133,7 +154,7 @@ class RecipeModel: ObservableObject {
             
             
             
-            portion += ingredient.num == nil && ingredient.denom == nil ? "" : " "
+            portion += " "
 
             return portion + unit
         }

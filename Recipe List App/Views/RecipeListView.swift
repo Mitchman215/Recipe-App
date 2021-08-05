@@ -12,6 +12,9 @@ struct RecipeListView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @EnvironmentObject var model:RecipeModel
     
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(key: "name", ascending: true)])
+    private var recipes: FetchedResults<Recipe>
+    
     private var titleText: String {
         if model.selectedCategory == nil || model.selectedCategory == Constants.defaultListFilter {
             return "All Recipes"
@@ -48,7 +51,7 @@ struct RecipeListView: View {
                 
                 ScrollView {
                     LazyVStack (alignment: .leading) {
-                        ForEach(model.recipes) { r in
+                        ForEach(recipes) { r in
                             
                             if model.selectedCategory == nil ||
                                 model.selectedCategory == Constants.defaultListFilter ||

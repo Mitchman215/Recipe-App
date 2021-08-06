@@ -9,6 +9,11 @@ import SwiftUI
 
 struct AddRecipeView: View {
     
+    @Environment(\.managedObjectContext) private var viewContext
+    
+    // Tab selection
+    @Binding var selection: Int
+    
     // Properties for recipe meta data
     @State private var name = ""
     @State private var category = ""
@@ -51,6 +56,9 @@ struct AddRecipeView: View {
                     
                     // Clear the form
                     clear()
+                    
+                    // Navigate to the list
+                    selection = Constants.listTab
                 }
             }
             
@@ -130,16 +138,47 @@ struct AddRecipeView: View {
         directions = [String]()
         
         ingredients = [IngredientJSON]()
+        
+        placeHolderImage = Image("noImageAvailable")
+        recipeImage = nil
     }
     
     /// Add the recipe into core data
     private func addRecipe() {
+        let recipe = Recipe(context: viewContext)
+        recipe.id = UUID()
+        recipe.name = name
+        recipe.category = category
+        recipe.cookTime = cookTime
+        recipe.prepTime = prepTime
+        recipe.totalTime = totalTime
+        recipe.servings = Int(servings) ?? 1
+        recipe.directions = directions
+        recipe.highlights = highlights
+        recipe.image = recipeImage?.pngData()
         
-    }
-}
-
-struct AddRecipeView_Previews: PreviewProvider {
-    static var previews: some View {
-        AddRecipeView()
+        // Set ingredients
+        for i in ingredients {
+            let ingredient = Ingredient(context: viewContext)
+            ingredient.id = UUID()
+            ingredient.name = i.name
+            ingredient.unit = i.unit
+            ingredient.num = i.num ?? 1
+            ingredient.denom = i.denom ?? 1
+            // Add the ingredient to the recipe
+            recipe.addToIngredients(ingredient)
+        }
+        
+        
+        do {
+            // save recipe to core data
+            try viewContext.save()
+            
+            // Switch the view to list view
+        }
+        catch {
+            // Couldn't save the recipe
+            print(error.localizedDescription)
+        }
     }
 }

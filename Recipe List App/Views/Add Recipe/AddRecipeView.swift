@@ -25,6 +25,14 @@ struct AddRecipeView: View {
     // Ingredient data
     @State private var ingredients = [IngredientJSON]()
     
+    // Recipe image
+    @State private var recipeImage: UIImage?
+    
+    // Image picker
+    @State private var isShowingImagePicker = false
+    @State private var selectedImageSource = UIImagePickerController.SourceType.photoLibrary
+    @State private var placeHolderImage = Image("noImageAvailable")
+    
     var body: some View {
         
         VStack {
@@ -49,6 +57,26 @@ struct AddRecipeView: View {
             ScrollView (showsIndicators: false) {
                 VStack (alignment: .leading) {
                     
+                    // Recipe image
+                    placeHolderImage
+                        .resizable()
+                        .scaledToFit()
+                    
+                    HStack {
+                        Button("Photo Library") {
+                            selectedImageSource = .photoLibrary
+                            isShowingImagePicker = true
+                        }
+                        Text(" | ")
+                        Button("Camera") {
+                            selectedImageSource = .camera
+                            isShowingImagePicker = true
+                        }
+                    }
+                    .sheet(isPresented: $isShowingImagePicker, onDismiss: loadImage) {
+                        ImagePicker(selectedSource: selectedImageSource, recipeImage: $recipeImage)
+                    }
+                    
                     // Fields for the user to enter in each property of the recipe
                     Group {
                         propertyField(fieldName: "Name", example: "Tuna Casserrole", textBind: $name)
@@ -70,6 +98,14 @@ struct AddRecipeView: View {
             }
         }
         .padding(.horizontal)
+    }
+    
+    private func loadImage() {
+        // Check if an image was selected from the library
+        if recipeImage != nil {
+            // Set it as the placeholder image
+            placeHolderImage = Image(uiImage: recipeImage!)
+        }
     }
     
     private func propertyField(fieldName: String, example: String, textBind: Binding<String>) -> some View {

@@ -66,7 +66,7 @@ struct RecipeListView: View {
                 
                 ScrollView {
                     LazyVStack (alignment: .leading) {
-                        ForEach(filteredRecipes) { r in
+                        ForEach<[Recipe], UUID?, NavigationLink>(filteredRecipes) { r in
                             
                             NavigationLink(
                                 destination: RecipeDetailView(recipe: r),

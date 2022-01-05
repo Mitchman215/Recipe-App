@@ -173,7 +173,6 @@ struct AddRecipeView: View {
         do {
             // save recipe to core data
             try viewContext.save()
-            
             // Switch the view to list view
         }
         catch {

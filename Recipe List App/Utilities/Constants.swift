@@ -15,6 +15,5 @@ enum Constants {
     static var addTab = 3
     
     static var isDataPreloaded = "isDataPreloaded"
-    
     static var defaultListFilter = "All Recipes"
 }
